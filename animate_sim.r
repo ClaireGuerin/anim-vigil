@@ -1,5 +1,7 @@
 rm(list = ls())
 
+setwd("/home/claire/Documents/git/vigilance-predation/build/")
+
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, gifski, gganimate)
 library(tidyverse)
@@ -18,12 +20,10 @@ library(gganimate)
 #   rename(vigilance = value) %>%
 #   add_column(generations = time)
 
-vigilance <- read_csv("output/vigilance_out.txt", col_names = FALSE) 
-time <- seq(1,nrow(vigilance))
+vigilance <- read_csv("vigilance_out.txt", col_names = FALSE)
 
 vigilance_data <- vigilance %>% 
-  rename(vigilance = X1) %>%
-  add_column(generations = time)
+  rename(generations = X1, vigilance = X2)
 
 #==== Plot Vigilance ====
 
@@ -34,10 +34,10 @@ vPlot <- vigilance_data %>%
   theme_minimal() +
   transition_reveal(generations)
 
-anim_save("output/vigilance_out.gif", vPlot)
+anim_save("vigilance_out.gif", vPlot)
 
 #==== Import ecosystem data ====
-resources <- read_table2("output/resources_out.txt", col_names = FALSE) 
+resources <- read_csv("resources_out.txt", col_names = FALSE) 
 resource_data <- resources %>%
   rename(time = X1, x = X2, y = X3, resource = X4)
 
@@ -49,7 +49,7 @@ resource_data <- resources %>%
 #   transition_time(time) +
 #   labs(title = "Ecological time: {round(frame_time)}")
 
-movement <- read_table2("output/exploration_out.txt", col_names = FALSE) 
+movement <- read_csv("exploration_out.txt", col_names = FALSE) 
 movement_data <- movement %>%
   rename(time = X1, x_pos = X2, y_pos = X3, vigilance = X4)
 
@@ -81,4 +81,4 @@ gPlot <- resource_data %>%
 # to add a wake that follows the dots movements, add:
 # shadow_wake(wake_length = 0.1) +
 
-anim_save("output/grid_out.gif", gPlot)
+anim_save("grid_out.gif", gPlot)
