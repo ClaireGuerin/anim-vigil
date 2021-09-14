@@ -1,6 +1,6 @@
 rm(list = ls())
 
-setwd("/home/claire/Documents/git/vigilance-predation/build/")
+setwd("output/")
 
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, gifski, gganimate)
@@ -20,7 +20,7 @@ library(gganimate)
 #   rename(vigilance = value) %>%
 #   add_column(generations = time)
 
-vigilance <- read_csv("vigilance_out.txt", col_names = FALSE)
+vigilance <- read_csv("vigilance_out.txt", col_names = FALSE, col_types = "id")
 
 vigilance_data <- vigilance %>% 
   rename(generations = X1, vigilance = X2)
