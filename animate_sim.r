@@ -1,6 +1,7 @@
 rm(list = ls())
 
-setwd("output/")
+setwd(getSrcDirectory()[1])
+setwd("../output/")
 
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, gifski, gganimate)
