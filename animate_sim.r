@@ -1,7 +1,14 @@
-rm(list = ls())
+#!/usr/bin/env Rscript
+args = commandArgs(trailingOnly=TRUE)
 
-#setwd(getSrcDirectory()[1])
-setwd("../output/")
+# test if there is one argument, required: if not, return an error
+if (length(args)!=1) {
+  stop("Provide the location of the output files", call.=FALSE)
+}
+
+# "../output" in C++
+# "output/" in Python
+setwd(args[1])
 
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, gifski, gganimate)
