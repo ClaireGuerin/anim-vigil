@@ -1,6 +1,6 @@
 rm(list = ls())
 
-setwd(getSrcDirectory()[1])
+#setwd(getSrcDirectory()[1])
 setwd("../output/")
 
 if (!require("pacman")) install.packages("pacman")
